@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using API.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,4 +19,3 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.Run();
- 
