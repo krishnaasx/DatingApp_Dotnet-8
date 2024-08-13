@@ -1,7 +1,6 @@
 using API.Data;
 using API.Interface;
 using API.Service;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Extensions {
