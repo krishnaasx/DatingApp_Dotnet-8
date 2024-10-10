@@ -17,7 +17,6 @@ namespace API.Extensions {
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             return services;
-
         }
     }
 }
