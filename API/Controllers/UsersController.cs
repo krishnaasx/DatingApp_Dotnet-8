@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using API.DTOs;
 using API.Interface;
 using AutoMapper;
@@ -21,6 +22,18 @@ namespace API.Controllers  {
             var user = await userRespository.GetUserByUsernameAsync(username);
             if (user == null) return NotFound();
             return mapper.Map<MemberDto>(user);
+        }
+
+        [HttpPut]
+        public async Task<ActionResult> UpdateUser(MemberUpdateDto memberUpdateDto) {
+
+            var username = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (username == null) return BadRequest("No username found in token");
+            var user = await userRespository.GetUserByUsernameAsync(username);
+            if(user == null) return BadRequest("Count not find the user");
+            mapper.Map(memberUpdateDto, user);
+            if (await userRespository.SaveAllAsync()) return NoContent();
+            return BadRequest("Failed to update the user");
         }
     }
 }
