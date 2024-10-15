@@ -1,0 +1,72 @@
+.row {
+    margin-left: -10px; 
+}
+
+#yourprofile {
+    padding-top: 40px;
+}
+
+.card {
+    margin-top: 20px;
+}
+
+img {
+    margin: 10px; 
+    width: calc(100% - 20px); 
+    height: auto;
+    max-height: 300px; 
+    object-fit: cover;
+}
+
+.card-body {
+    padding: 0 15px 15px; /* Adjust padding for card body */
+}
+
+.card-footer {
+    padding: 10px 15px;
+    background-color: #fff;
+    border-top: none;
+}
+
+
+.card-body > div {
+    margin-bottom: 10px; 
+}
+
+.card-body strong {
+    display: inline-block;
+    min-width: 100px;
+}
+
+.card-body p {
+    margin: 0;
+    display: inline-block;
+}
+
+.btn-group {
+    margin-top: 10px; 
+    display: flex;
+    width: 100%;
+}
+
+.btn-group .btn {
+    flex: 1;
+    border-radius: 0;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 10px 0;
+}
+
+.btn-group .btn-dark {
+    background-color: #1e2125;
+    border-color: #1e2125;
+}
+
+.btn-group .btn-success {
+    background-color: #198754;
+    border-color: #198754;
+}
+
+.member-tabs {
+    margin-top: 20px; /* Add space above tabs */
+}
