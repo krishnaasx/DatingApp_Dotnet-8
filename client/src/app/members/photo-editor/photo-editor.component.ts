@@ -1,6 +1,6 @@
 import { Component, inject, input, OnInit, output } from '@angular/core';
 import { Member } from "../../_models/member";
-import { DecimalPipe, NgClass, NgFor, NgIf, NgStyle } from "@angular/common";
+import { DecimalPipe, NgClass, NgFor, NgIf, NgStyle, PathLocationStrategy } from "@angular/common";
 import { FileUploader, FileUploadModule } from "ng2-file-upload";
 import { AccountService } from "../../_services/account.service";
 import { environment } from "../../../environments/environment";
@@ -37,6 +37,16 @@ export class PhotoEditorComponent implements OnInit {
 
   fileOverBase(e : any ) {
     this.hasBaseDropZoneOver = e;
+  }
+
+  deletePhoto(photo: Photo) {
+    this.memberService.deletePhoto(photo).subscribe({
+      next: _ => {
+        const updatedMember = {...this.member()};
+        updatedMember.photos = updatedMember.photos.filter(x => x.id !== photo.id);
+        this.memberChange.emit(updatedMember);
+      }
+    })
   }
 
   setMainPhoto(photo: Photo) {
