@@ -1,6 +1,7 @@
 using API.DTOs;
 using API.Entities;
 using API.Extensions;
+using API.Helpers;
 using API.Interface;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -8,16 +9,16 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers {
     
-
     [Authorize]
     public class UsersController(IUserRespository userRespository, IMapper mapper, IPhotoService photoService) : BaseApiController {
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers() {
+        public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers([FromQuery] UserParams userParams) {
 
-            var users = await userRespository.GetMembersAsync();
-            var usersToRetrun = mapper.Map<IEnumerable<MemberDto>>(users);
-            return Ok(usersToRetrun);
+            userParams.CurrentUsername = User.GetUsername();
+            var users = await userRespository.GetMembersAsync(userParams);
+            Response.AddPaginationHeader(users);
+            return Ok(users);
         }
 
         [HttpGet("{username}")]
@@ -64,6 +65,7 @@ namespace API.Controllers {
 
         [HttpPut("set-main-photo/{photoId:int}")]
         public async Task<ActionResult> SetMainPhoto(int photoId) {
+
             var user = await userRespository.GetUserByUsernameAsync(User.GetUsername());
             if (user == null) return BadRequest("Count not find the user");
             var photo = user.Photos.FirstOrDefault(x => x.Id == photoId);
@@ -79,6 +81,7 @@ namespace API.Controllers {
 
         [HttpDelete("delete-photo/{photoId:int}")]
         public async Task<ActionResult> DeletePhoto(int photoId) {
+
             var user = await userRespository.GetUserByUsernameAsync(User.GetUsername());
             if(user == null) return BadRequest("User not found");
             var photo = user.Photos.FirstOrDefault(x => x.Id == photoId);
