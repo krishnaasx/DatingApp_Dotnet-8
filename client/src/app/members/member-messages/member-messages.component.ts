@@ -2,8 +2,6 @@ import { Component, inject, input, OnInit, output, ViewChild } from '@angular/co
 import { MessageService } from "../../_services/message.service";
 import { Message } from "../../_models/messages";
 import { TimeagoModule } from "ngx-timeago";
-import { HttpClient } from "@angular/common/http";
-import { MessagesComponent } from "../../messages/messages.component";
 import { FormsModule, NgForm } from "@angular/forms";
 
 @Component({

@@ -13,6 +13,9 @@
       <li class="nav-item" style="cursor: pointer">
         <a routerLink="/messages" routerLinkActive="active" class="nav-link">Messages</a>
       </li>
+      <li *appHasRole="['Admin', 'Moderator']" class="nav-item" style="cursor: pointer">
+        <a routerLink="/admin" routerLinkActive="active" class="nav-link">Admin</a>
+      </li>
       }
       <li class="nav-item" style="cursor: pointer">
         <a routerLink="/errors" routerLinkActive="active" class="nav-link">Errors</a>
@@ -31,6 +34,7 @@
       </div>
     </div>
     }
+
     @if(!accountService.currentUser()){
     <form #loginForm="ngForm" (ngSubmit)="login()" class="d-flex" autocomplete="off">
       <input name="username" [(ngModel)]="model.username" class="form-control me-2" placeholder="Username" />

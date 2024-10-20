@@ -12,6 +12,8 @@ namespace API.Controllers {
     [Authorize]
     public class UsersController(IUserRespository userRespository, IMapper mapper, IPhotoService photoService) : BaseApiController {
 
+
+       
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers([FromQuery] UserParams userParams) {
 
@@ -21,12 +23,13 @@ namespace API.Controllers {
             return Ok(users);
         }
 
+   
         [HttpGet("{username}")]
         public async Task<ActionResult<MemberDto>> GetUser(string username) {
 
-            var user = await userRespository.GetUserByUsernameAsync(username);
+            var user = await userRespository.GetMemberAsync(username);
             if (user == null) return NotFound();
-            return mapper.Map<MemberDto>(user);
+            return user;
         }
 
         [HttpPut]
