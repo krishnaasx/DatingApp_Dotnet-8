@@ -18,17 +18,12 @@ export class MemberMessagesComponent {
 
   @ViewChild('messageForm') messageForm?: NgForm;
   username = input.required<string>();
-  private messageService = inject(MessageService);
-  messages = input.required<Message[]>();
+  messageService = inject(MessageService);
   messageContent  = '';
-  updateMessages = output<Message>();
 
   sendMessage() {
-    this.messageService.sendMessage(this.username(), this.messageContent).subscribe({
-      next: message => {
-        this.updateMessages.emit(message);
-        this.messageForm?.reset();
-      }
+    this.messageService.sendMessage(this.username(), this.messageContent).then(() => {
+      this.messageForm?.reset();
     })
   }
 
